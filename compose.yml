@@ -1,0 +1,110 @@
+services:
+  wireguard:
+    image: linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - SERVERPORT=51820
+      - PEERS=1
+    volumes:
+      - ./wireguard-docker/config:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - "51820:51820/udp"
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bhack
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bhack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  landing-web:
+    build:
+      context: .
+      dockerfile: landing/Dockerfile.web
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+    environment:
+      - HOST=0.0.0.0
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@postgres:5432/bhack
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 172.28.0.30
+
+  landing-bot:
+    build:
+      context: .
+      dockerfile: landing/Dockerfile.bot
+    environment:
+      - BACKEND_URL=http://landing-web:80
+      - FRONTEND_URL=http://landing-web:80
+    depends_on:
+      - landing-web
+    restart: unless-stopped
+
+  fileshare:
+    build:
+      context: .
+      dockerfile: fileshare/backend/Dockerfile
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@postgres:5432/bhack
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 172.28.0.31
+
+  portal.astra.stf:
+    build:
+      context: .
+      dockerfile: staff/Dockerfile.web
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@postgres:5432/bhack
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 172.28.0.20
+
+  chat.astra.stf:
+    build:
+      context: .
+      dockerfile: chat/Dockerfile
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@postgres:5432/bhack
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 172.28.0.21
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+

@@ -1,8 +1,10 @@
 FROM node:18 AS frontend-builder
 WORKDIR /app/frontend
 COPY chat/frontend/package*.json ./
-RUN npm install
-COPY chat/frontend/ .
+RUN npm ci
+COPY chat/frontend/index.html ./
+COPY chat/frontend/vite.config.js ./
+COPY chat/frontend/src ./src
 RUN npm run build
 
 FROM python:3.12-slim
