@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: staff_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-staff}
+      POSTGRES_USER: ${POSTGRES_USER:-staff}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-staff}
+    ports:
+      - "5432:5432"
+    volumes:
+      - staff_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-staff}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build:
+      context: ../backend
+    container_name: staff_backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-staff}:${POSTGRES_PASSWORD:-staff}@db:5432/${POSTGRES_DB:-staff}
+      DBAUTH_DATABASE_URL: ${DBAUTH_DATABASE_URL:-}
+      CORS_ORIGINS: http://localhost:5173,http://localhost:8080
+      COOKIE_SECURE: "false"
+      SESSION_COOKIE_NAME: staff_session
+      SESSION_TTL_HOURS: "24"
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ../frontend
+    container_name: staff_frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  staff_pg_data:

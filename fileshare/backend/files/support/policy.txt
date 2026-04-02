@@ -1,0 +1,14 @@
+ASTRA TECHNOLOGIES - IT POLICY UPDATE
+
+To maximize employee efficiency and minimize time wasted on logins, we have rolled out our new Unified Authentication System (UAS). 
+
+From now on, your primary session cookie ("token") is globally valid across ALL internal corporate services. This includes:
+- The Support Admin Panel
+- The Staff KPI Portal
+- The Astra Corporate Messenger
+- The Internal Fileshare
+
+DO NOT share your token cookie with anyone. If your token is compromised and someone ruins your KPI, the company will not compensate you, and your pay will be docked accordingly.
+
+Work hard. Sleep less.
+- Astra IT Dept.

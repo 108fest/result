@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500&family=Roboto+Mono:wght@400;600&display=swap');
+
+:root {
+  --a-bg: #f2f0eb;
+  --a-bg-alt: #eae8e3;
+  --a-bg-white: #faf9f6;
+  --a-text: #1a1a1a;
+  --a-text-soft: #6b6660;
+  --a-text-faint: #9e9a94;
+  --a-line: rgba(26, 26, 26, 0.1);
+  --a-line-strong: rgba(26, 26, 26, 0.18);
+  --a-accent: #1a1a1a;
+  --a-red: #c0392b;
+  --a-green: #27ae60;
+  --a-yellow: #e6a817;
+  --a-blue: #2e86c1;
+  --a-r: 0px;
+  --a-r-sm: 0px;
+  --a-font: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--a-bg);
+  color: var(--a-text);
+  font-family: var(--a-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--a-text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+a:hover {
+  color: var(--a-red);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--a-bg-white);
+  border-bottom: 2px solid var(--a-line-strong);
+}
+
+.main-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.brand {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--a-red);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.card {
+  background: var(--a-bg-white);
+  border: 1px solid var(--a-line);
+  padding: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+input,
+textarea {
+  font-family: var(--a-font);
+  font-size: 13px;
+  border: 1px solid var(--a-line-strong);
+  padding: 9px 12px;
+  background: var(--a-bg-white);
+  color: var(--a-text);
+  width: 100%;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--a-accent);
+  outline: none;
+}
+
+button {
+  font-family: var(--a-font);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  border: none;
+  background: var(--a-accent);
+  color: var(--a-bg);
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+button:hover {
+  background: #333;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background: var(--a-line-strong);
+  color: var(--a-text-faint);
+}
+
+.error {
+  color: var(--a-red);
+  font-weight: 600;
+}
+
+h1, h2, h3 {
+  font-family: var(--a-font);
+  font-weight: 700;
+  margin-top: 0;
+  color: var(--a-accent);
+}
+
+.text-soft {
+  color: var(--a-text-soft);
+}

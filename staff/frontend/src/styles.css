@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500&family=Roboto+Mono:wght@400;600&display=swap');
+
+:root {
+  --a-bg: #f2f0eb;
+  --a-bg-alt: #eae8e3;
+  --a-bg-white: #faf9f6;
+  --a-text: #1a1a1a;
+  --a-text-soft: #6b6660;
+  --a-text-faint: #9e9a94;
+  --a-line: rgba(26, 26, 26, 0.1);
+  --a-line-strong: rgba(26, 26, 26, 0.18);
+  --a-accent: #1a1a1a;
+  --a-red: #c0392b;
+  --a-green: #27ae60;
+  --a-yellow: #e6a817;
+  --a-blue: #2e86c1;
+  --a-r: 0px;
+  --a-r-sm: 0px;
+  --a-font: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--a-bg);
+  color: var(--a-text);
+  font-family: var(--a-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--a-text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+a:hover {
+  color: var(--a-red);
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--a-bg-white);
+  border-bottom: 2px solid var(--a-line-strong);
+  position: sticky;
+  top: 0;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 16px;
+}
+
+.topbar nav a {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.main-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.brand {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--a-red);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.card {
+  background: var(--a-bg-white);
+  border: 1px solid var(--a-line);
+  border-radius: var(--a-r);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.profile-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 0;
+  border: 2px solid var(--a-accent);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid var(--a-line);
+}
+
+th {
+  background: var(--a-bg-alt);
+  color: var(--a-text-soft);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.page-center {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.login-card {
+  width: min(420px, 92vw);
+  display: grid;
+  gap: 12px;
+  background: var(--a-bg-white);
+  padding: 32px;
+  border: 2px solid var(--a-accent);
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+input,
+textarea,
+select {
+  font-family: var(--a-font);
+  font-size: 13px;
+  border-radius: var(--a-r-sm);
+  border: 1px solid var(--a-line-strong);
+  padding: 9px 12px;
+  background: var(--a-bg-white);
+  color: var(--a-text);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--a-accent);
+  outline: none;
+}
+
+button {
+  font-family: var(--a-font);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  border-radius: var(--a-r);
+  border: none;
+  background: var(--a-accent);
+  color: var(--a-bg);
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+button:hover {
+  background: #333;
+  color: #fff;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--a-text);
+  border: 1px solid var(--a-line-strong);
+}
+
+button.ghost:hover {
+  background: var(--a-accent);
+  color: #fff;
+  border-color: var(--a-accent);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background: var(--a-line-strong);
+  color: var(--a-text-faint);
+}
+
+.error {
+  color: var(--a-red);
+  font-weight: 600;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--a-font);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--a-accent);
+}
+
+.role-chip {
+  background: var(--a-red);
+  color: white;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-right: 16px;
+}

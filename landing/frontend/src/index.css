@@ -1,0 +1,1036 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500&family=Roboto+Mono:wght@400;600&display=swap');
+
+:root {
+  --a-bg: #f2f0eb;
+  --a-bg-alt: #eae8e3;
+  --a-bg-white: #faf9f6;
+  --a-text: #1a1a1a;
+  --a-text-soft: #6b6660;
+  --a-text-faint: #9e9a94;
+  --a-line: rgba(26, 26, 26, 0.1);
+  --a-line-strong: rgba(26, 26, 26, 0.18);
+  --a-accent: #1a1a1a;
+  --a-red: #c0392b;
+  --a-green: #27ae60;
+  --a-yellow: #e6a817;
+  --a-blue: #2e86c1;
+  --a-r: 0px;
+  --a-r-sm: 0px;
+  --a-font: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* ═══ Foundation ═══ */
+
+html, body, #layout, #layout-content, #layout-sidebar,
+#layout-menu, .content, .iframe-wrapper, #mainscreen {
+  background: var(--a-bg);
+  color: var(--a-text);
+}
+
+body, input, select, textarea, button {
+  font-family: var(--a-font);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .header,
+#layout-content .header .header-title {
+  font-family: var(--a-font);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+a, #layout a {
+  color: var(--a-text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+a:hover, #layout a:hover {
+  color: var(--a-red);
+}
+
+::selection {
+  background: var(--a-accent);
+  color: var(--a-bg);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--a-line-strong); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--a-text-faint); }
+
+/* ═══ Top Bar ═══ */
+
+#topline {
+  background: var(--a-bg-white);
+  border-bottom: 1px solid var(--a-line);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  color: var(--a-text);
+}
+
+#topline .topleft a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 16px;
+  background: none !important;
+  box-shadow: none;
+  color: var(--a-text);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+#topline .topleft a::before {
+  content: "●";
+  font-size: 8px;
+  color: var(--a-red);
+}
+
+#topline .topleft a::after {
+  content: "Secure Mail";
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--a-text-faint);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ═══ Task Menu ═══ */
+
+#taskmenu, #layout-sidebar, #layout-menu {
+  background: var(--a-bg-white);
+  border-color: var(--a-line);
+  box-shadow: none;
+}
+
+#taskmenu a, #taskmenu .button {
+  border-radius: var(--a-r);
+  color: var(--a-text);
+  font-weight: 500;
+  font-size: 12px;
+  transition: background 0.15s, color 0.15s;
+}
+
+#taskmenu a .inner,
+#taskmenu .button .inner {
+  color: inherit;
+}
+
+#taskmenu a::before,
+#taskmenu .button::before {
+  color: var(--a-text) !important;
+  transition: color 0.15s;
+}
+
+.listing li a, #folderlist li a, #mailboxlist li a {
+  border-radius: var(--a-r-sm);
+  transition: background 0.15s, color 0.15s;
+}
+
+#taskmenu .button-selected,
+#taskmenu .selected,
+#layout-menu .selected,
+.listing li.selected > a,
+#folderlist li.selected > a,
+#mailboxlist li.selected > a {
+  background: var(--a-accent);
+  color: var(--a-bg) !important;
+}
+
+#taskmenu .button-selected .inner,
+#taskmenu .selected .inner,
+#taskmenu .button-selected::before,
+#taskmenu .selected::before {
+  color: var(--a-bg) !important;
+}
+
+#taskmenu a:hover,
+#taskmenu .button:hover,
+.listing li a:hover,
+#folderlist li a:hover,
+#mailboxlist li a:hover {
+  background: var(--a-accent) !important;
+  color: #fff !important;
+}
+
+#taskmenu a:hover .inner,
+#taskmenu .button:hover .inner,
+#taskmenu a:hover::before,
+#taskmenu .button:hover::before {
+  color: #fff !important;
+}
+
+.listing li a:hover,
+#folderlist li a:hover,
+#mailboxlist li a:hover {
+  color: #fff !important;
+}
+
+.listing li a:hover span,
+#folderlist li a:hover span,
+#mailboxlist li a:hover span,
+.listing li a:hover::before,
+#folderlist li a:hover::before,
+#mailboxlist li a:hover::before {
+  color: #fff !important;
+}
+
+#taskmenu a.logout,
+#taskmenu a.logout .inner,
+#taskmenu a.logout::before,
+#taskmenu a.logout:hover,
+#taskmenu a.logout:hover .inner,
+#taskmenu a.logout:hover::before {
+  color: #fff !important;
+}
+
+#taskmenu .special-buttons .about,
+#taskmenu .special-buttons .theme {
+  display: none !important;
+}
+
+/* ═══ Compose button ═══ */
+
+#layout-menu #taskmenu a.compose .inner { font-size: 0; }
+#layout-menu #taskmenu a.compose .inner::after {
+  content: "Write";
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ═══ Buttons ═══ */
+
+.toolbar a.button, .toolbarmenu a.button,
+button.btn, input[type="button"], input[type="submit"] {
+  border-radius: var(--a-r);
+  border: none;
+  background: var(--a-accent);
+  color: var(--a-bg);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  box-shadow: none;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.toolbar a.button:hover, .toolbarmenu a.button:hover,
+button.btn:hover, input[type="button"]:hover, input[type="submit"]:hover {
+  background: #333;
+  color: #fff;
+}
+
+.toolbar a.button.disabled, .toolbarmenu a.button.disabled,
+button.btn.disabled, input[type="button"]:disabled, input[type="submit"]:disabled {
+  background: var(--a-line-strong);
+  color: var(--a-text-faint);
+  box-shadow: none;
+}
+
+.toolbar a.button.delete, .toolbarmenu a.button.delete,
+.toolbar a.button.danger {
+  background: var(--a-red);
+}
+
+/* ═══ Inputs ═══ */
+
+input[type="text"], input[type="password"], input[type="email"],
+textarea, select {
+  background: var(--a-bg-white);
+  border: 1px solid var(--a-line-strong);
+  border-radius: var(--a-r-sm);
+  color: var(--a-text);
+  font-family: var(--a-font);
+  font-size: 13px;
+  padding: 9px 12px;
+  box-shadow: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus,
+textarea:focus, select:focus {
+  border-color: var(--a-accent);
+  box-shadow: 0 0 0 2px rgba(26,26,26,0.08);
+  outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--a-text-faint);
+}
+
+.form-control, .custom-select, .custom-file-label,
+.recipient-input, .recipient-input li.recipient,
+.multi-input > .content, .input-group-text,
+.compose-headers .form-control, .compose-headers .custom-select {
+  background: var(--a-bg-white) !important;
+  color: var(--a-text) !important;
+  border-color: var(--a-line-strong) !important;
+  border-radius: var(--a-r-sm) !important;
+  font-family: var(--a-font) !important;
+}
+
+.form-control:focus, .custom-select:focus, .custom-file-label:focus,
+.multi-input > .content.focused, .recipient-input.focus,
+.input-group > .form-control:focus, .input-group > .custom-select:focus {
+  background: #fff !important;
+  color: var(--a-text) !important;
+  border-color: var(--a-accent) !important;
+  box-shadow: 0 0 0 2px rgba(26,26,26,0.08) !important;
+}
+
+.recipient-input input, .multi-input input.form-control,
+.input-group .form-control, .input-group .custom-select,
+.compose-headers input, .compose-headers textarea, .compose-headers select {
+  background: #fff !important;
+  color: var(--a-text) !important;
+}
+
+/* ═══ Sidebar ═══ */
+
+#layout-sidebar {
+  border-right: 1px solid var(--a-line);
+  border-radius: 0;
+  background: var(--a-bg-white);
+}
+
+#layout-sidebar > .header {
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0 0.75rem;
+  border-bottom: 1px solid var(--a-line);
+}
+
+#layout-sidebar .header-title.username {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  margin: 0;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* ═══ Content Area ═══ */
+
+#layout-content .header,
+#layout-content .toolbar {
+  /* border: none; */
+  /* border-bottom: 1px solid var(--a-line); */
+  /* border-radius: 0; */
+  /* background: var(--a-bg-white); */
+  /* box-shadow: none; */
+}
+
+#layout-content .header .header-title,
+#layout-sidebar .header,
+.boxfooter, .records-table thead th, .listing thead th {
+  color: var(--a-text-soft);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.boxfooter {
+  background: var(--a-bg-white);
+  border-top: 1px solid var(--a-line);
+  border-color: var(--a-line);
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.listing thead td, .listing thead th,
+.records-table thead td, .records-table thead th {
+  background: var(--a-bg-alt);
+  border-color: var(--a-line);
+  color: var(--a-text-soft);
+  box-shadow: none;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.popover, .dialog, .menu, .searchbox, .boxpagenav {
+  background: transparent !important;
+  /* border: 1px solid var(--a-line); */
+  /* border-radius: var(--a-r); */
+  color: var(--a-text);
+  /* box-shadow: 0 8px 24px rgba(0,0,0,0.08); */
+}
+
+/* ═══ Mail List ═══ */
+
+.listing tbody tr, .records-table tbody tr, #messagelist tbody tr {
+  background: transparent;
+  color: var(--a-text);
+  transition: background 0.1s;
+}
+
+.listing tbody td, .records-table tbody td, #messagelist tbody td {
+  border-color: var(--a-line);
+  font-size: 13px;
+}
+
+.listing tbody tr:hover td, .records-table tbody tr:hover td,
+#messagelist tbody tr:hover td, .listing li a:hover {
+  background: rgba(26,26,26,0.03);
+}
+
+.listing tbody tr.selected td, .records-table tbody tr.selected td,
+#messagelist tbody tr.selected td,
+.listing li.selected, .listing li.focused,
+#folderlist li.selected > a, #mailboxlist li.selected > a {
+  background: var(--a-accent);
+  color: var(--a-bg);
+}
+
+.listing tbody tr.selected a, .records-table tbody tr.selected a,
+#messagelist tbody tr.selected a, .listing li.selected a,
+#folderlist li.selected > a, #mailboxlist li.selected > a {
+  color: inherit;
+}
+
+#layout-list .header, #layout-list .header .header-title,
+#layout-list .listing li a, #layout-list .listing li a span,
+#layout-list .listing td span {
+  /* color: var(--a-text) !important; */
+}
+
+#sections-table td, #sections-table td a, #sections-table td span {
+  color: var(--a-text) !important;
+}
+
+#sections-table tr.selected td,
+#sections-table tr.selected td a,
+#sections-table tr.selected td span {
+  color: var(--a-bg) !important;
+}
+
+.listing .unread td, .listing .unread a,
+#messagelist .unread td, #messagelist .unread a {
+  font-weight: 700;
+}
+
+.listing .flagged a, .listing .priority a {
+  color: var(--a-red);
+}
+
+/* ═══ Message View ═══ */
+
+#message-header, #messagepartcontainer, .iframe-wrapper iframe {
+  /* background: var(--a-bg-white);
+  border: 1px solid var(--a-line);
+  border-radius: var(--a-r);
+  padding: 20px; */
+}
+
+/* ═══ Text Helpers ═══ */
+
+.listing span.secondary, .listing-info, .contactlist span.email,
+#login-footer, .hint, .notice, .formhelp,
+.records-table .date, .listing .date,
+.listing .subject .fromto, .quota-widget, .countdisplay {
+  font-size: 12px;
+}
+
+.quota, .countdisplay {
+  color: var(--a-text-faint);
+  font-size: 11px;
+}
+
+/* ═══ Settings ═══ */
+
+body.task-settings .boxcontent,
+body.task-settings .boxcontent label,
+body.task-settings .boxcontent legend,
+body.task-settings .boxcontent .boxtitle,
+body.task-settings .boxcontent .listing-info {
+  color: var(--a-text) !important;
+}
+
+body.task-settings .notice, body.task-settings .hint,
+body.task-settings .formhelp, body.task-settings .boxtitle,
+body.task-settings .listing .secondary,
+body.task-settings .listing span.secondary,
+body.task-settings .listing .date,
+body.task-settings .listing .subject .fromto {
+  color: var(--a-text-soft) !important;
+}
+
+/* ═══ Notifications ═══ */
+
+.notification {
+  border-radius: var(--a-r);
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.notification.error {
+  background: #fef2f0;
+  color: #922019;
+}
+
+.notification.warning {
+  background: #fef9ec;
+  color: #7a5b0a;
+}
+
+.notification.success, .notification.confirmation {
+  background: #eef9f2;
+  color: #1a6b3c;
+}
+
+.notification.info {
+  background: #eef5fb;
+  color: #1a5276;
+}
+
+/* ═══ Login Page ═══ */
+
+body.login-page, body.task-login, body.astro-login-page {
+  background: var(--a-bg);
+  position: relative;
+}
+
+body.login-page::before, body.task-login::before, body.astro-login-page::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.012) 2px,
+      rgba(0,0,0,0.012) 4px
+    );
+}
+
+body.login-page::after, body.task-login::after, body.astro-login-page::after {
+  content: '';
+  position: fixed;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 5%, rgba(0,0,0,0.025) 20%,
+    rgba(0,0,0,0.035) 50%, rgba(0,0,0,0.025) 80%,
+    transparent 95%);
+  animation: astroScanline 12s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes astroScanline {
+  0% { top: -3px; }
+  100% { top: 100%; }
+}
+
+body.login-page #layout,
+body.task-login #layout,
+body.astro-login-page #layout {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100vh;
+  background: transparent;
+}
+
+body.login-page #layout-content,
+body.task-login #layout-content,
+body.astro-login-page #layout-content {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  max-width: 100% !important;
+  /* min-height: 100vh;
+  padding: 40px 20px; */
+  background: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+body.login-page #layout-content .box-inner,
+body.task-login #layout-content .box-inner,
+body.astro-login-page #layout-content .box-inner {
+  background: transparent;
+}
+
+body.login-page #logo, body.task-login #logo, body.astro-login-page #logo {
+  display: none;
+}
+
+body.login-page #layout-content::before,
+body.task-login #layout-content::before,
+body.astro-login-page #layout-content::before {
+  display: none;
+}
+
+body.login-page #login-form,
+body.task-login #login-form,
+body.astro-login-page #login-form {
+  position: relative;
+  max-width: 460px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 2px solid var(--a-accent);
+  border-radius: 0;
+  background: var(--a-bg);
+  box-shadow: none;
+  clip-path: polygon(28px 0, 100% 0, 100% 100%, 0 100%, 0 28px);
+  overflow: visible;
+}
+
+body.login-page #login-form::before,
+body.task-login #login-form::before,
+body.astro-login-page #login-form::before {
+  content: '';
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  border-bottom: 2px solid var(--a-accent);
+  transform: rotate(-45deg);
+  transform-origin: 0 0;
+  top: 20px;
+  left: -1px;
+  background: none;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+body.login-page #login-form::after,
+body.task-login #login-form::after,
+body.astro-login-page #login-form::after {
+  display: none;
+}
+
+body.login-page #login-form .box-inner,
+body.task-login #login-form .box-inner,
+body.astro-login-page #login-form .box-inner {
+  background: transparent;
+}
+
+/* ═══ Astro Login Card ═══ */
+
+.astro-login {
+  padding: 48px 40px 36px;
+  position: relative;
+}
+
+.astro-login__corner {
+  position: absolute;
+  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-size: 1.5rem;
+  color: var(--a-accent);
+  line-height: 1;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.astro-login__corner--tl { top: -4px; left: -4px; }
+.astro-login__corner--tr { top: -4px; right: -4px; }
+.astro-login__corner--bl { bottom: -4px; left: -4px; }
+.astro-login__corner--br { bottom: -4px; right: -4px; }
+
+.astro-login__logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.astro-login__logo {
+  height: 90px;
+  width: auto;
+  display: block;
+  filter: brightness(0);
+  opacity: 0.9;
+}
+
+.astro-login__divider {
+  width: 60px;
+  height: 2px;
+  background: var(--a-accent);
+  margin: 0 auto 24px;
+}
+
+.astro-login__title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-align: center;
+  margin: 0 0 8px;
+  color: var(--a-text);
+}
+
+.astro-login__subtitle {
+  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--a-text-faint);
+  margin: 0 0 32px;
+}
+
+.astro-login__sso-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: auto !important;
+  padding: 16px 32px !important;
+  border: 2px solid var(--a-red) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--a-red) !important;
+  font-family: 'Roboto Mono', 'Courier New', monospace !important;
+  font-size: 0.8rem !important;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s !important;
+  box-shadow: none !important;
+}
+
+.astro-login__sso-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--a-red);
+  transition: left 0.3s;
+  z-index: 0;
+}
+
+.astro-login__sso-btn:hover {
+  color: #fff !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+.astro-login__sso-btn:hover::before {
+  left: 0;
+}
+
+.astro-login__sso-btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+.astro-login__footer {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.astro-login__footer-text {
+  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: var(--a-text-faint);
+}
+
+/* ═══ Login Alerts ═══ */
+
+body.login-page #messagestack, body.task-login #messagestack, body.astro-login-page #messagestack {
+  width: min(460px, calc(100vw - 32px));
+  margin: 0 auto 1rem;
+  position: relative;
+  z-index: 3;
+}
+
+body.login-page #messagestack .alert, body.task-login #messagestack .alert, body.astro-login-page #messagestack .alert,
+body.login-page .ui.alert, body.task-login .ui.alert, body.astro-login-page .ui.alert,
+body.login-page .noscriptwarning, body.task-login .noscriptwarning, body.astro-login-page .noscriptwarning {
+  border: none;
+  border-radius: 0;
+  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+body.login-page #messagestack .alert-warning,
+body.task-login #messagestack .alert-warning,
+body.astro-login-page #messagestack .alert-warning,
+body.login-page .noscriptwarning, body.task-login .noscriptwarning, body.astro-login-page .noscriptwarning {
+  background: #fef9ec; color: #7a5b0a;
+}
+
+body.login-page #messagestack .alert-danger,
+body.task-login #messagestack .alert-danger,
+body.astro-login-page #messagestack .alert-danger {
+  background: #fef2f0; color: #922019;
+}
+
+body.login-page #messagestack .alert-info,
+body.task-login #messagestack .alert-info,
+body.astro-login-page #messagestack .alert-info {
+  background: #eef5fb; color: #1a5276;
+}
+
+body.login-page #messagestack .alert-success,
+body.task-login #messagestack .alert-success,
+body.astro-login-page #messagestack .alert-success {
+  background: #eef9f2; color: #1a6b3c;
+}
+
+body.login-page #messagestack .alert a,
+body.task-login #messagestack .alert a,
+body.astro-login-page #messagestack .alert a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* ═══ Compose / Dialogs ═══ */
+
+.identity-section,
+.ui-dialog .ui-dialog-content, .popupmenu, .searchbox {
+  background: var(--a-bg-white);
+  border: 1px solid var(--a-line);
+  border-radius: var(--a-r);
+}
+
+/* ═══ Popover (mobile menu) ═══ */
+
+#layout-menu .popover-header {
+  display: none !important;
+}
+
+/* ═══ All buttons — hover/active fixes ═══ */
+
+a.button,
+button.btn,
+a.button.icon,
+button.icon.toolbar-button {
+  color: var(--a-text) !important;
+  transition: background 0.15s, color 0.15s;
+}
+
+a.button .inner,
+button.btn .inner {
+  color: inherit !important;
+}
+
+a.button::before,
+button.btn::before,
+a.button.icon::before,
+button.icon.toolbar-button::before {
+  color: inherit !important;
+  transition: color 0.15s;
+}
+
+a.button:hover,
+a.button:hover .inner,
+a.button:hover::before,
+a.button.active,
+a.button.active .inner,
+a.button:focus,
+a.button:focus .inner,
+a.button:focus::before,
+button.btn:hover,
+button.btn:hover .inner,
+button.btn:hover::before,
+a.button.icon:hover,
+a.button.icon:hover::before,
+button.icon.toolbar-button:hover,
+button.icon.toolbar-button:hover::before {
+  background: var(--a-accent) !important;
+  color: #fff !important;
+}
+
+a.button.disabled:hover,
+a.button.disabled:hover .inner,
+a.button.disabled:hover::before,
+button.btn.disabled:hover {
+  background: var(--a-line-strong) !important;
+  color: var(--a-text-faint) !important;
+}
+
+/* — specific overrides for transparent header/footer buttons — */
+
+#layout div .header a.button,
+#layout div .footer a.button {
+  background: transparent !important;
+}
+
+#layout div .header a.button:hover,
+#layout div .footer a.button:hover,
+#layout div .header a.button:hover::before,
+#layout div .footer a.button:hover::before,
+#layout div .header a.button:hover .inner,
+#layout div .footer a.button:hover .inner {
+  background: var(--a-accent) !important;
+  color: #fff !important;
+}
+
+/* — message menu — */
+
+#message-menu .menu a,
+#message-menu .menu a .inner,
+#message-menu .menu a::before {
+  color: var(--a-text) !important;
+}
+
+#message-menu .menu a:hover,
+#message-menu .menu a:hover .inner,
+#message-menu .menu a:hover::before,
+#message-menu .menu a.active,
+#message-menu .menu a.active .inner,
+#message-menu .menu a.active::before {
+  color: #fff !important;
+  background: var(--a-accent) !important;
+}
+
+/* ═══ Email body — prevent black on black ═══ */
+
+#messagebody,
+#messagebody *,
+.message-part,
+.message-part *,
+.message-htmlpart,
+.message-htmlpart *,
+#message-content,
+#message-content *,
+.rcmBody,
+.rcmBody * {
+  /* color: var(--a-text) !important; */
+  background-color: transparent !important; 
+}
+
+#message-content,
+#message-content * {
+  color: var(--a-text) !important;
+  background-color: transparent !important; 
+}
+
+.message-part,
+.message-htmlpart,
+.rcmBody {
+  background: transparent !important;
+}
+
+iframe#messagecontframe {
+  background: var(--a-bg-white);
+}
+
+html.dark-mode #layout>div>.footer a.button,
+html.dark-mode #layout>div>.header a.button {
+  color: var(--a-text) !important;
+}
+
+/* ═══ Sidebar .inner text — force readable black ═══ */
+
+#taskmenu a .inner,
+#taskmenu .button .inner,
+#layout-menu #taskmenu a .inner,
+#layout-menu #taskmenu .button .inner {
+  color: var(--a-text);
+}
+
+#taskmenu a:hover .inner,
+#taskmenu .button:hover .inner,
+#taskmenu .selected .inner,
+#taskmenu .button-selected .inner {
+  color: #fff !important;
+}
+
+/* ═══ col-form-label ═══ */
+
+fieldset#main .col-form-label {
+  color: #fff;
+}
+.col-2{
+  color: #000;
+}
+
+/* ═══ Dark-mode editor toolbar ═══ */
+
+html.dark-mode .html-editor .editor-toolbar {
+  background-color: #cfcfcf !important;
+  border-color: #7c949c !important;
+}
+
+/* ═══ File upload icon — darker ═══ */
+
+.file-upload.droptarget::after {
+  filter: brightness(0) !important;
+}
+
+/* ═══ Upload form button ═══ */
+
+.upload-form .button,
+.upload-form button,
+.upload-form input[type="submit"],
+.upload-form .btn {
+  color: #fff !important;
+}
+
+/* ═══ Dark-mode focus fix ═══ */
+
+html.dark-mode .custom-file-label:focus:not(.is-invalid),
+html.dark-mode .form-control:focus:not(.is-invalid) {
+  color: #000 !important;
+}
+
+/* ═══ Hide mailboxoptions-menu trigger ═══ */
+
+[data-popup="mailboxoptions-menu"] {
+  display: none !important;
+}
+
+/* ═══ Responsive ═══ */
+
+@media (max-width: 900px) {
+  #topline .topleft a {
+    min-height: 42px;
+    font-size: 13px;
+  }
+  #topline .topleft a::after { font-size: 9px; }
+}
+
+@media (max-width: 520px) {
+  body.login-page #login-form, body.task-login #login-form, body.astro-login-page #login-form {
+    clip-path: none;
+    margin: 0 12px;
+  }
+  body.login-page #login-form::before, body.task-login #login-form::before, body.astro-login-page #login-form::before {
+    display: none;
+  }
+  .astro-login {
+    padding: 32px 20px 28px;
+  }
+  .astro-login__logo {
+    height: 70px;
+  }
+  .astro-login__title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  #layout-sidebar .header-title.username {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.recipient-input li.recipient a.button.icon:before {
+  line-height: 0;
+}
+
+.recipient-input li.recipient, body>li.recipient.ui-sortable-helper {
+  align-items: center;
+}
+

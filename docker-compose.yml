@@ -1,0 +1,89 @@
+version: '3.8'
+name: bhack-108fest
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Astra_DB_S3cr3t_99!
+      POSTGRES_DB: bhack
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bhack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  landing-web:
+    build:
+      context: .
+      dockerfile: landing/Dockerfile.web
+    image: upconett/bhack_108fest-landing-web:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - DATABASE_URL=postgresql+psycopg2://postgres:Astra_DB_S3cr3t_99!@postgres:5432/bhack
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  landing-bot:
+    build:
+      context: .
+      dockerfile: landing/Dockerfile.bot
+    image: upconett/bhack_108fest-landing-bot:latest
+    environment:
+      - BACKEND_URL=http://landing-web:8000
+      - FRONTEND_URL=http://landing-web:8000
+    depends_on:
+      - landing-web
+    restart: unless-stopped
+
+  fileshare:
+    build:
+      context: .
+      dockerfile: fileshare/backend/Dockerfile
+    image: upconett/bhack_108fest-fileshare:latest
+    ports:
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:Astra_DB_S3cr3t_99!@postgres:5432/bhack
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  staff-web:
+    build:
+      context: .
+      dockerfile: staff/Dockerfile.web
+    image: upconett/bhack_108fest-staff-web:latest
+    ports:
+      - "8002:8000"
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:Astra_DB_S3cr3t_99!@postgres:5432/bhack
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  chat:
+    build:
+      context: .
+      dockerfile: chat/Dockerfile
+    image: upconett/bhack_108fest-chat:latest
+    ports:
+      - "8003:8000"
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:Astra_DB_S3cr3t_99!@postgres:5432/bhack
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+
