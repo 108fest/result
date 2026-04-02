@@ -1,4 +1,4 @@
-1) Поднять ВМ
+1) Поднять ВМ (ubuntu/debian)
 2) Клонировать репозиторий 
 ```sh
 git clone https://github.com/108fest/result.git
