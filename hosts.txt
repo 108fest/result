@@ -1,0 +1,5 @@
+172.28.0.30 landing.astra.stf
+172.28.0.31 fileshare.astra.stf
+# Internal Services hosted on :8000
+172.28.0.20 staff.astra.stf
+172.28.0.21 chat.astra.stf
